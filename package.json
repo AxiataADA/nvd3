@@ -6,7 +6,8 @@
   "main": "build/nv.d3.js",
   "scripts": {
     "test": "grunt",
-    "build": "grunt"
+    "build": "grunt production --force",
+    "watch": "npm-watch"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,14 @@
   "license": "Apache-2.0",
   "peerDependencies": {
     "d3": "^3.4.4"
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "src"
+      ],
+      "extensions": "js,jsx,css"
+    }
   },
   "devDependencies": {
     "autoprefixer": "^6.5.0",
@@ -48,5 +57,8 @@
     "karma-spec-reporter": "0.0.13",
     "mocha": "^1.21.4",
     "moment": "^2.18.1"
+  },
+  "dependencies": {
+    "npm-watch": "^0.7.0"
   }
 }

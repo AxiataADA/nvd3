@@ -21,6 +21,11 @@ nv.models.pie = function() {
         , hideOverlapLabels = false //Hide labels that don't fit in slice
         , donut = false
         , title = false
+        , titleFormat = d3.format(',.2f')
+        , titleSize = 0.1
+        , icon = 'Video'
+        , iconSize = 0.4
+        , bottomText = ''
         , growOnHover = true
         , titleOffset = 0
         , labelSunbeamLayout = false
@@ -47,7 +52,7 @@ nv.models.pie = function() {
         renderWatch.reset();
         selection.each(function(data) {
             var availableWidth = width - margin.left - margin.right
-                , availableHeight = height - margin.top - margin.bottom
+                , availableHeight = height - margin.top - margin.bottom - (bottomText ? 50 : 0)
                 , radius = Math.min(availableWidth, availableHeight) / 2
                 , arcsRadiusOuter = []
                 , arcsRadiusInner = []
@@ -86,7 +91,20 @@ nv.models.pie = function() {
             g.select('.nv-pie').attr('transform', 'translate(' + availableWidth / 2 + ',' + availableHeight / 2 + ')');
             g.select('.nv-pieLabels').attr('transform', 'translate(' + availableWidth / 2 + ',' + availableHeight / 2 + ')');
 
-            //
+            function getTextWidth(text, font) {
+              // re-using canvas object for better performance
+              let canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement("canvas"));
+              let context = canvas.getContext("2d");
+              context.font = font;
+              let metrics = context.measureText(text);
+              return metrics.width;
+            }
+            // adding bottom text to donut or pie chart
+            container.append("text")
+              .style('fill' , '#4F62AA')
+              .attr({"x": ((availableWidth/2) - getTextWidth(bottomText, 'Roboto-Regular 14px')/2), "y": availableHeight + 20})
+              .text(bottomText);
+
             container.on('click', function(d,i) {
                 dispatch.chartClick({
                     data: d,
@@ -135,20 +153,27 @@ nv.models.pie = function() {
                 pie.padAngle(padAngle);
             }
 
-            // if title is specified and donut, put it in the middle
-            if (donut && title) {
-                g_pie.append("text").attr('class', 'nv-pie-title');
+            // if icon is specified and donut, put it in the middle
+            if (donut && icon) {
+                g_pie.append("image").attr("xlink:href", "/static/assets/images/Donut Chart Icon/" + icon + ".png")
+                  .attr("width", radius * iconSize ).attr("height", radius * iconSize)
+                  .attr("x", -(radius * iconSize)/2).attr("y", -(radius * iconSize)/2);
+            }
 
-                wrap.select('.nv-pie-title')
-                    .style("text-anchor", "middle")
-                    .text(function (d) {
-                        return title;
-                    })
-                    .style("font-size", (Math.min(availableWidth, availableHeight)) * donutRatio * 2 / (title.length + 2) + "px")
-                    .attr("dy", "0.35em") // trick to vertically center text
-                    .attr('transform', function(d, i) {
-                        return 'translate(0, '+ titleOffset + ')';
-                    });
+            // if title is specified and donut, put it in the middle
+            if (donut && title >= 0) {
+                g_pie.append("text")
+                  .style("text-anchor", "middle")
+                  .style("fill", "black")
+                  .style("font", "normal normal normal 13px/18px Roboto;")
+                  .text(function (d) {
+                      return titleFormat(title);
+                  })
+                  .style("font-size", radius * titleSize+ "px")
+                  .attr("dy", "0.35em") // trick to vertically center text
+                  .attr('transform', function(d, i) {
+                      return icon ? 'translate(0, '+ radius * (((iconSize + titleSize)/2) + titleOffset) + ')' : 'translate(0, '+ titleOffset + ')' ;
+                  });
             }
 
             var slices = wrap.select('.nv-pie').selectAll('.nv-slice').data(pie);
@@ -417,7 +442,12 @@ nv.models.pie = function() {
         height:     {get: function(){return height;}, set: function(_){height=_;}},
         showLabels: {get: function(){return showLabels;}, set: function(_){showLabels=_;}},
         title:      {get: function(){return title;}, set: function(_){title=_;}},
+        titleFormat:      {get: function(){return titleFormat;}, set: function(_){titleFormat=_;}},
+        titleSize:      {get: function(){return titleSize;}, set: function(_){titleSize=_;}},
         titleOffset:    {get: function(){return titleOffset;}, set: function(_){titleOffset=_;}},
+        iconName:      {get: function(){return icon;}, set: function(_){icon=_;}},
+        iconSize:      {get: function(){return iconSize;}, set: function(_){iconSize=_;}},
+        bottomText:      {get: function(){return bottomText;}, set: function(_){bottomText=_;}},
         labelThreshold: {get: function(){return labelThreshold;}, set: function(_){labelThreshold=_;}},
         hideOverlapLabels: {get: function(){return hideOverlapLabels;}, set: function(_){hideOverlapLabels=_;}},
         valueFormat:    {get: function(){return valueFormat;}, set: function(_){valueFormat=_;}},
