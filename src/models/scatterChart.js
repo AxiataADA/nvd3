@@ -235,8 +235,10 @@ nv.models.scatterChart = function() {
             if (showXAxis) {
                 xAxis
                     .scale(x)
-                    ._ticks( nv.utils.calcTicksX(availableWidth/100, data) )
-                    .tickSize( -availableHeight , 0);
+                    ._ticks(0)
+                    .tickSize(0);
+                    // ._ticks( nv.utils.calcTicksX(availableWidth/100, data) )
+                    // .tickSize( -availableHeight , 0);
 
                 g.select('.nv-x.nv-axis')
                     .attr('transform', 'translate(0,' + y.range()[0] + ')')
@@ -246,8 +248,8 @@ nv.models.scatterChart = function() {
             if (showYAxis) {
                 yAxis
                     .scale(y)
-                    ._ticks( nv.utils.calcTicksY(availableHeight/36, data) )
-                    .tickSize( -availableWidth, 0);
+                    // ._ticks( nv.utils.calcTicksY(availableHeight/36, data) )
+                    .tickSize(0);
 
                 g.select('.nv-y.nv-axis')
                     .call(yAxis);
