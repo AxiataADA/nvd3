@@ -1,4 +1,4 @@
-/* nvd3 version 2.0.3 (https://github.com/apache-superset/nvd3) 2020-09-10 */
+/* nvd3 version 2.0.3 (https://github.com/apache-superset/nvd3) 2020-09-15 */
 (function(){
 
 // set up main nv object
@@ -14361,7 +14361,7 @@ nv.models.pie = function() {
     // Public Variables with Default Settings
     //------------------------------------------------------------
 
-    var margin = {top: 0, right: 0, bottom: 0, left: 0}
+    var margin = {top: 10, right: 0, bottom: 0, left: 0}
         , width = 500
         , height = 500
         , getX = function(d) { return d.x }
@@ -14416,8 +14416,9 @@ nv.models.pie = function() {
 
             container = d3.select(this)
             if (arcsRadius.length === 0) {
-                var outer = radius - radius / 10;
-                var inner = donutRatio * radius;
+                var outer = radius;
+                console.log(radius);
+                var inner = radius - 17;
                 for (var i = 0; i < data[0].length; i++) {
                     arcsRadiusOuter.push(outer);
                     arcsRadiusInner.push(inner);
@@ -14458,7 +14459,7 @@ nv.models.pie = function() {
             // adding bottom text to donut or pie chart
             container.append("text")
               .style('fill' , '#4F62AA')
-              .attr({"x": ((availableWidth/2) - getTextWidth(bottomText, 'Roboto-Regular 14px')/2), "y": availableHeight + 20})
+              .attr({"x": ((availableWidth/2) - getTextWidth(bottomText, 'Roboto-Regular 14px')/2), "y": availableHeight + 30})
               .text(bottomText);
 
             container.on('click', function(d,i) {
