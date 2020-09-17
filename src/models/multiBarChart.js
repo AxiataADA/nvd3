@@ -22,7 +22,7 @@ nv.models.multiBarChart = function() {
         , showControls = true
         , controlLabels = {}
         , showLegend = true
-        , legendPosition = null
+        , legendPosition = 'bottom'
         , showXAxis = true
         , showYAxis = true
         , rightAlignYAxis = false
@@ -195,10 +195,12 @@ nv.models.multiBarChart = function() {
                          .datum(data)
                          .call(legend);
 
+                     // calculating the width of legend wrap to align legend filter in center
+                     var legendWidth = d3.select('.nv-legendWrap').node().getBoundingClientRect().width + 50;
                      margin.bottom = xAxis.height() + legend.height();
                      availableHeight = nv.utils.availableHeight(height, container, margin);
                      g.select('.nv-legendWrap')
-                         .attr('transform', 'translate(0,' + (availableHeight + xAxis.height())  +')');
+                         .attr('transform', 'translate(' + (-((availableWidth-(legendWidth >= legend.width() ? legend.width() : legendWidth))/2)) + ',' + (availableHeight + xAxis.height())  +')');
                 } else {
                     legend.width(availableWidth - controlWidth());
 

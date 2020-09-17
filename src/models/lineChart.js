@@ -20,7 +20,7 @@ nv.models.lineChart = function() {
         , width = null
         , height = null
         , showLegend = true
-        , legendPosition = 'top'
+        , legendPosition = 'bottom'
         , showXAxis = true
         , showYAxis = true
         , rightAlignYAxis = false
@@ -161,9 +161,14 @@ nv.models.lineChart = function() {
 
                 if (legendPosition === 'bottom') {
                      margin.bottom = xAxis.height() + legend.height();
+
+                     // calculating the width of legend wrap to align legend filter in center
+                     var legendWidth = d3.select('.nv-legendWrap').node().getBoundingClientRect().width + 50;
+
                      availableHeight = nv.utils.availableHeight(height, container, margin);
                      g.select('.nv-legendWrap')
-                         .attr('transform', 'translate(0,' + (availableHeight + xAxis.height())  +')');
+                       .attr('transform', 'translate(' + (-((availableWidth-(legendWidth >= availableWidth ? availableWidth : legendWidth))/2)) + ',' + (availableHeight + xAxis.height())  +')');
+
                 } else if (legendPosition === 'top') {
                     if (!marginTop && legend.height() !== margin.top) {
                         margin.top = legend.height();

@@ -287,7 +287,8 @@ nv.models.stackedAreaChart = function() {
             if (showXAxis) {
                 xAxis.scale(x)
                     ._ticks( nv.utils.calcTicksX(availableWidth/100, data) )
-                    .tickSize( -availableHeight, 0);
+                    .tickSize(0);
+                    // .tickSize( -availableHeight, 0);
             }
 
             if (showYAxis) {

@@ -1,4 +1,4 @@
-/* nvd3 version 2.0.3 (https://github.com/apache-superset/nvd3) 2020-09-15 */
+/* nvd3 version 2.0.3 (https://github.com/apache-superset/nvd3) 2020-09-18 */
 (function(){
 
 // set up main nv object
@@ -9717,7 +9717,7 @@ nv.models.lineChart = function() {
         , width = null
         , height = null
         , showLegend = true
-        , legendPosition = 'top'
+        , legendPosition = 'bottom'
         , showXAxis = true
         , showYAxis = true
         , rightAlignYAxis = false
@@ -9858,9 +9858,14 @@ nv.models.lineChart = function() {
 
                 if (legendPosition === 'bottom') {
                      margin.bottom = xAxis.height() + legend.height();
+
+                     // calculating the width of legend wrap to align legend filter in center
+                     var legendWidth = d3.select('.nv-legendWrap').node().getBoundingClientRect().width + 50;
+
                      availableHeight = nv.utils.availableHeight(height, container, margin);
                      g.select('.nv-legendWrap')
-                         .attr('transform', 'translate(0,' + (availableHeight + xAxis.height())  +')');
+                       .attr('transform', 'translate(' + (-((availableWidth-(legendWidth >= availableWidth ? availableWidth : legendWidth))/2)) + ',' + (availableHeight + xAxis.height())  +')');
+
                 } else if (legendPosition === 'top') {
                     if (!marginTop && legend.height() !== margin.top) {
                         margin.top = legend.height();
@@ -11381,7 +11386,7 @@ nv.models.multiBarChart = function() {
         , showControls = true
         , controlLabels = {}
         , showLegend = true
-        , legendPosition = null
+        , legendPosition = 'bottom'
         , showXAxis = true
         , showYAxis = true
         , rightAlignYAxis = false
@@ -11554,10 +11559,12 @@ nv.models.multiBarChart = function() {
                          .datum(data)
                          .call(legend);
 
+                     // calculating the width of legend wrap to align legend filter in center
+                     var legendWidth = d3.select('.nv-legendWrap').node().getBoundingClientRect().width + 50;
                      margin.bottom = xAxis.height() + legend.height();
                      availableHeight = nv.utils.availableHeight(height, container, margin);
                      g.select('.nv-legendWrap')
-                         .attr('transform', 'translate(0,' + (availableHeight + xAxis.height())  +')');
+                         .attr('transform', 'translate(' + (-((availableWidth-(legendWidth >= legend.width() ? legend.width() : legendWidth))/2)) + ',' + (availableHeight + xAxis.height())  +')');
                 } else {
                     legend.width(availableWidth - controlWidth());
 
@@ -17784,7 +17791,8 @@ nv.models.stackedAreaChart = function() {
             if (showXAxis) {
                 xAxis.scale(x)
                     ._ticks( nv.utils.calcTicksX(availableWidth/100, data) )
-                    .tickSize( -availableHeight, 0);
+                    .tickSize(0);
+                    // .tickSize( -availableHeight, 0);
             }
 
             if (showYAxis) {
