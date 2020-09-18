@@ -33,7 +33,7 @@ nv.models.pie = function() {
         , padAngle = false
         , endAngle = false
         , cornerRadius = 0
-        , donutRatio = 0.5
+        , donutRatio = '17px'
         , duration = 250
         , arcsRadius = []
         , dispatch = d3.dispatch('chartClick', 'elementClick', 'elementDblClick', 'elementMouseover', 'elementMouseout', 'elementMousemove', 'renderEnd')
@@ -61,8 +61,7 @@ nv.models.pie = function() {
             container = d3.select(this)
             if (arcsRadius.length === 0) {
                 var outer = radius;
-                console.log(radius);
-                var inner = radius - 17;
+                var inner = radius - (donutRatio < 1 ? 17 : donutRatio);
                 for (var i = 0; i < data[0].length; i++) {
                     arcsRadiusOuter.push(outer);
                     arcsRadiusInner.push(inner);
@@ -103,6 +102,7 @@ nv.models.pie = function() {
             // adding bottom text to donut or pie chart
             container.append("text")
               .style('fill' , '#4F62AA')
+              .style("font-family", "'Roboto', sans-serif")
               .attr({"x": ((availableWidth/2) - getTextWidth(bottomText, 'Roboto-Regular 14px')/2), "y": availableHeight + 30})
               .text(bottomText);
 
@@ -166,7 +166,7 @@ nv.models.pie = function() {
                 g_pie.append("text")
                   .style("text-anchor", "middle")
                   .style("fill", "black")
-                  .style("font", "normal normal normal 13px/18px Roboto;")
+                  .style("font-family", "'Roboto', sans-serif")
                   .text(function (d) {
                       return titleFormat(title);
                   })

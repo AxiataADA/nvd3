@@ -14,9 +14,11 @@
 
 .nvd3 .nv-bars text {
     fill: rgba(0,0,0,0);
+    font-family: 'Roboto', sans-serif;
 }
 
 .nvd3 .nv-bars .hover text {
+  font-family: 'Roboto', sans-serif;
     fill: rgba(0,0,0,1);
 }
 
@@ -37,6 +39,7 @@
 
 .nvd3 .nv-discretebar .nv-groups text,
 .nvd3 .nv-multibarHorizontal .nv-groups text {
+    font-family: 'Roboto', sans-serif;
     font-weight: bold;
     fill: rgba(0,0,0,1);
     stroke: rgba(0,0,0,0);

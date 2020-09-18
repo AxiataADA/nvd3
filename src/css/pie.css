@@ -9,6 +9,7 @@
 }
 
 .nvd3.nv-pie .nv-slice text {
+    font-family: 'Roboto', sans-serif;
     stroke: #000;
     stroke-width: 0;
 }
