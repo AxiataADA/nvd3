@@ -200,7 +200,7 @@ nv.models.multiBarChart = function() {
                      margin.bottom = xAxis.height() + legend.height();
                      availableHeight = nv.utils.availableHeight(height, container, margin);
                      g.select('.nv-legendWrap')
-                         .attr('transform', 'translate(' + (-((availableWidth-(legendWidth >= legend.width() ? legend.width() : legendWidth))/2)) + ',' + (availableHeight + xAxis.height())  +')');
+                         .attr('transform', 'translate(0,' + (availableHeight + xAxis.height())  +')');
                 } else {
                     legend.width(availableWidth - controlWidth());
 

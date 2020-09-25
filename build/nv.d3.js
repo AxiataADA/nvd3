@@ -1,4 +1,4 @@
-/* nvd3 version 2.0.3 (https://github.com/apache-superset/nvd3) 2020-09-18 */
+/* nvd3 version 2.0.3 (https://github.com/apache-superset/nvd3) 2020-09-25 */
 (function(){
 
 // set up main nv object
@@ -9860,11 +9860,10 @@ nv.models.lineChart = function() {
                      margin.bottom = xAxis.height() + legend.height();
 
                      // calculating the width of legend wrap to align legend filter in center
-                     var legendWidth = d3.select('.nv-legendWrap').node().getBoundingClientRect().width + 50;
-
+                     var legendWidth = d3.select('.nv-legendWrap').node().getBoundingClientRect().width;
                      availableHeight = nv.utils.availableHeight(height, container, margin);
                      g.select('.nv-legendWrap')
-                       .attr('transform', 'translate(' + (-((availableWidth-(legendWidth >= availableWidth ? availableWidth : legendWidth))/2)) + ',' + (availableHeight + xAxis.height())  +')');
+                       .attr('transform', 'translate(0,' + (availableHeight + xAxis.height())  +')');
 
                 } else if (legendPosition === 'top') {
                     if (!marginTop && legend.height() !== margin.top) {
@@ -11564,7 +11563,7 @@ nv.models.multiBarChart = function() {
                      margin.bottom = xAxis.height() + legend.height();
                      availableHeight = nv.utils.availableHeight(height, container, margin);
                      g.select('.nv-legendWrap')
-                         .attr('transform', 'translate(' + (-((availableWidth-(legendWidth >= legend.width() ? legend.width() : legendWidth))/2)) + ',' + (availableHeight + xAxis.height())  +')');
+                         .attr('transform', 'translate(0,' + (availableHeight + xAxis.height())  +')');
                 } else {
                     legend.width(availableWidth - controlWidth());
 
