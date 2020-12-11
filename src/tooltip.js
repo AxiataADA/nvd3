@@ -89,7 +89,10 @@ nv.models.tooltip = function() {
         trowEnter.append("td")
             .classed("legend-color-guide",true)
             .append("div")
-            .style("background-color", function(p) { return p.color});
+            .style("background", function(p) { 
+              var colorGradiantArray = nv.utils.getColorGradiant(p.color);
+              return colorGradiantArray && colorGradiantArray.length ? 'linear-gradient(' + colorGradiantArray[1] + ' 0%, ' + colorGradiantArray[0] + ' 100%) 0% 0% no-repeat padding-box padding-box transparent' : p.color;
+            });
 
         trowEnter.append("td")
             .classed("key",true)

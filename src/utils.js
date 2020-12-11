@@ -1,5 +1,41 @@
 
+/*
+  get Color gradiant array for the charts and tooltipbelow is the global object and after that there is a functions
+*/
+const gradientobject = {
+  'rgb(97, 62, 166)': ['rgb(97,62,166)', 'rgb(155,114,210)'],
+  'rgb(26, 110, 254)': ['rgb(26,110,254)', 'rgb(56,167,255)'],
+  'rgb(255, 33, 130)': ['rgb(255,33,130)', 'rgb(255,68,184)'],
+  'rgb(109, 153, 226)': ['rgb(109,153,226)', 'rgb(166,201,243)'],
+  'rgb(32, 187, 191)': ['rgb(32,187,191)', 'rgb(99,217,220)'],
+  'rgb(175, 72, 155)': ['rgb(175,72,155)', 'rgb(223,96,250)'],
+  'rgb(188, 202, 252)': ['rgb(188,202,252)', 'rgb(208,218,253)'],
+  'rgb(147, 171, 254)': ['rgb(147,171,254)', 'rgb(179,196,254)'],
+  'rgb(115, 145, 243)': ['rgb(115,145,243)', 'rgb(156,177,246)'],
+  'rgb(92, 127, 236)': ['rgb(92,127,236)', 'rgb(140,165,241)'],
+  'rgb(61, 94, 203)': ['rgb(61,94,203)', 'rgb(118,142,218)'],
+  'rgb(30, 62, 172)': ['rgb(30,62,172)', 'rgb(97,119,196)'],
+  'rgb(17, 45, 141)': ['rgb(17,45,141)', 'rgb(87,107,175)'],
+  'rgb(226, 154, 43)': ['rgb(226,154,43)', 'rgb(254,183,74)'],
+  '#613EA6': ['#613EA6', '#9B72D2'],
+  '#1A6EFE': ['#1A6EFE', '#38A7FF'],
+  '#FF2182': ['#FF2182', '#FF44B8'],
+  '#6D99E2': ['#6D99E2', '#A6C9F3'],
+  '#20BBBF': ['#20BBBF', '#63D9DC'],
+  '#AF489B': ['#AF489B', '#DF60FA'],
+  '#BCCAFC': ['#BCCAFC', '#D0DAFD'],
+  '#93ABFE': ['#93ABFE', '#B3C4FE'],
+  '#7391F3': ['#7391F3', '#9CB1F6'],
+  '#5C7FEC': ['#5C7FEC', '#8CA5F1'],
+  '#3D5ECB': ['#3D5ECB', '#768EDA'],
+  '#1E3EAC': ['#1E3EAC', '#6177C4'],
+  '#112D8D': ['#112D8D', '#576BAF'],
+  '#E29A2B': ['#E29A2B', '#FEB74A'],
+};
 
+nv.utils.getColorGradiant = function(color) {
+  return color ? gradientobject[color] : color;
+};
 /*
 Gets the browser window size
 
@@ -751,4 +787,3 @@ nv.utils.pointIsInArc = function(pt, ptData, d3Arc) {
     return (r1 * r1 <= dist) && (dist <= r2 * r2) &&
       (theta1 <= angle) && (angle <= theta2);
 };
-
